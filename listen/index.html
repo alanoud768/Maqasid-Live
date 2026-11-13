@@ -3,200 +3,193 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#13233f">
 <title>Maqasid · Listen to our poster</title>
-<meta name="description" content="Our SW 350 research poster, read aloud, with the full text.">
+<meta name="description" content="Listen to the Maqasid research poster, or read it with a screen reader.">
+<meta name="theme-color" content="#121f36">
 <style>
-@font-face{font-family:Inter;font-weight:400;font-display:swap;src:url(fonts/inter-latin-400-normal.woff2) format('woff2')}
-@font-face{font-family:Inter;font-weight:600;font-display:swap;src:url(fonts/inter-latin-600-normal.woff2) format('woff2')}
-@font-face{font-family:Inter;font-weight:700;font-display:swap;src:url(fonts/inter-latin-700-normal.woff2) format('woff2')}
-@font-face{font-family:Montserrat;font-weight:800;font-display:swap;src:url(fonts/montserrat-latin-800-normal.woff2) format('woff2')}
-:root{--navy:#13233f;--navy2:#1c2f52;--bg:#f5f3ee;--ink:#13233f;--muted:#47556e;--line:#d5dbe5;--mint:#7ee0d4;
-  --maq:#0e7c74;--maqL:#dcefeb;--gap:#ffd089}
+@font-face{font-family:Inter;font-weight:400;font-display:swap;src:url("fonts/inter-latin-400-normal.woff2") format("woff2")}
+@font-face{font-family:Inter;font-weight:600;font-display:swap;src:url("fonts/inter-latin-600-normal.woff2") format("woff2")}
+@font-face{font-family:Inter;font-weight:700;font-display:swap;src:url("fonts/inter-latin-700-normal.woff2") format("woff2")}
+@font-face{font-family:Montserrat;font-weight:800;font-display:swap;src:url("fonts/montserrat-latin-800-normal.woff2") format("woff2")}
+:root{
+  --navy:#121f36; --navy-2:#1b2c4a; --teal:#0e7c74; --teal-ink:#ffffff; --mint:#8fd3cb;
+  --bg:#ebe9e5; --card:#ffffff; --fg:#13213c; --muted:#4a566d; --line:#d9dde4; --soft:#e6f3f1;
+  --focus:#E69F00;
+  --head:"Montserrat","Inter",system-ui,sans-serif; --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --navy:#0a1428; --navy-2:#16243f; --teal:#3fb3a6; --teal-ink:#06201d; --bg:#0d1526; --card:#152038; --fg:#eef2f8;
+  --muted:#b7c1d4; --line:#2b3a58; --soft:#14332f; --focus:#F0E442; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --navy:#0a1428; --navy-2:#16243f; --teal:#3fb3a6; --teal-ink:#06201d; --bg:#0d1526; --card:#152038; --fg:#eef2f8;
+  --muted:#b7c1d4; --line:#2b3a58; --soft:#14332f; --focus:#F0E442; color-scheme:dark}
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{margin:0;color:var(--ink);font:19px/1.65 Inter,system-ui,-apple-system,sans-serif;background-color:var(--bg);background-image:radial-gradient(rgba(19,35,63,.07) 1.2px,transparent 1.5px);background-size:22px 22px}
-h1,h2,h3{font-family:Montserrat,Inter,sans-serif;font-weight:800;margin:0;line-height:1.2}
-a{color:var(--maq);text-underline-offset:3px}
-:focus-visible{outline:3px solid var(--maq);outline-offset:3px}
-.wrap{max-width:760px;margin:0 auto;padding:0 max(18px,env(safe-area-inset-left))}
-.skip{position:absolute;left:-9999px;top:10px;z-index:20;background:var(--mint);color:var(--navy);padding:10px 14px;border-radius:10px;font-weight:700}
-.skip:focus{left:14px}
-.dark{background-color:var(--navy);background-image:radial-gradient(rgba(255,255,255,.09) 1.2px,transparent 1.6px);background-size:24px 24px;color:#fff}
-
-/* header */
-header{padding:22px 0 70px}
-.logo{display:flex;align-items:center;gap:10px;font:800 28px/1 Montserrat,sans-serif;letter-spacing:-.5px}
-.logo i{width:11px;height:11px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 5px rgba(126,224,212,.18)}
-.eyebrow{margin-top:30px;font:700 13px Inter;letter-spacing:.16em;text-transform:uppercase;color:var(--mint)}
-header h1{font-size:clamp(23px,4.6vw,31px);margin-top:28px;text-wrap:balance}
-.by{margin:14px 0 0;color:#c9d3e6;font-size:16px;line-height:1.55}
-.uni{margin:6px 0 0;color:#c9d3e6;font-size:15px}
-
-/* player */
-.player{margin-top:-46px;position:relative;z-index:2;background:#fff;border-radius:26px;padding:20px 22px;box-shadow:0 0 0 4px rgba(126,224,212,.35),0 18px 40px rgba(19,35,63,.16)}
-.ph{font:800 12px Inter;letter-spacing:.14em;text-transform:uppercase;color:var(--maq)}
-.prow{display:flex;align-items:center;gap:18px;margin-top:12px}
-.play{flex:none;width:76px;height:76px;border-radius:50%;border:none;background:var(--maq);color:#fff;display:grid;place-items:center;cursor:pointer;box-shadow:0 10px 24px rgba(14,124,116,.35);transition:transform .15s,background .2s}
-.play:hover{background:#0b625c}.play:active{transform:scale(.96)}
-.play svg{width:32px;height:32px}
-.play .i-pause{display:none}
-.player.on .play .i-play{display:none}.player.on .play .i-pause{display:block}
-.player:not(.on) .play{animation:pulse 2.2s ease-out infinite}
-@keyframes pulse{0%{box-shadow:0 10px 24px rgba(14,124,116,.35),0 0 0 0 rgba(14,124,116,.45)}80%,100%{box-shadow:0 10px 24px rgba(14,124,116,.35),0 0 0 16px rgba(14,124,116,0)}}
-.pinfo{flex:1;min-width:0}
-.pinfo b{display:block;font:800 19px Montserrat;line-height:1.25}
-.pinfo span{font-size:15px;color:var(--muted)}
-.seek{margin-top:16px}
-input[type=range]{width:100%;accent-color:var(--maq);height:30px;margin:0}
-.times{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
-.ctrls{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.ctrls button{min-height:44px;padding:0 14px;border-radius:12px;border:2px solid var(--line);background:#fff;font:700 15px Inter;color:var(--ink);cursor:pointer}
-.ctrls button[aria-pressed=true]{background:var(--navy);border-color:var(--navy);color:#fff}
-.pnote{margin:12px 0 0;font-size:14.5px;font-style:italic;color:var(--muted)}
-
-/* poster text */
-main{padding-bottom:20px}
-.hook{margin:34px 0 0;font-size:clamp(24px,5vw,30px);text-wrap:balance}
-.finding{margin-top:18px;border-radius:22px;padding:20px 22px}
-.finding .k,.sec .k{font:800 12px Inter;letter-spacing:.14em;text-transform:uppercase;color:var(--mint)}
-.finding p{margin:8px 0 0;font:800 clamp(20px,4vw,24px)/1.4 Montserrat}
-.sec{margin-top:16px;background:#fff;border-radius:22px;padding:20px 22px}
-.sec .k{color:var(--maq)}
-.sec h2{font-size:23px;margin:0 0 10px;color:var(--ink)}
-.sec p{margin:0 0 12px}.sec p:last-child{margin-bottom:0}
-ol,ul{margin:0;padding-left:1.3em}
-li{margin:6px 0}
-li::marker{color:var(--maq);font-weight:700}
-.fig{margin:12px 0 0;border-left:5px solid var(--maq);background:var(--bg);border-radius:0 14px 14px 0;padding:14px 16px}
-.fig h3{font-size:17px;margin-bottom:6px}
-.fig p{margin:0 0 8px}.fig p:last-child{margin-bottom:0}
-.take{margin-top:16px;border-radius:22px;padding:20px 22px;background:var(--maq);color:#fff}
-.take .k{font:800 12px Inter;letter-spacing:.14em;text-transform:uppercase;color:var(--mint)}
-.take p{margin:8px 0 0;font:800 clamp(19px,3.8vw,22px)/1.45 Montserrat}
-footer{margin-top:40px;padding:24px 0 calc(30px + env(safe-area-inset-bottom));font-size:15px;color:#c9d3e6}
-footer b{display:block;color:#fff;font:800 20px Montserrat;margin-bottom:6px}
-@media (max-width:480px){body{font-size:18px}.player{padding:18px}.play{width:68px;height:68px}.sec,.finding,.take{padding:18px}}
-@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:19px;line-height:1.65;
+  background-image:radial-gradient(color-mix(in srgb,var(--fg) 7%,transparent) 1px,transparent 1.2px);background-size:22px 22px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:-9999px;top:8px;z-index:5;background:var(--teal);color:var(--teal-ink);padding:10px 14px;border-radius:8px;font-weight:700}
+.skip:focus{left:16px}
+:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
+.wrap{max-width:46rem;margin:0 auto;padding-inline:max(16px,env(safe-area-inset-left,0px))}
+header{background:var(--navy);color:#fff;padding:28px 0 120px;
+  background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1.2px);background-size:22px 22px}
+.brand{display:flex;align-items:center;gap:10px;margin:0 0 18px;font-family:var(--head);font-weight:800;font-size:28px}
+.brand::before{content:"";width:14px;height:14px;border-radius:50%;background:var(--mint)}
+.brand span[lang="ar"]{font-family:"Geeza Pro","Noto Sans Arabic","Segoe UI",var(--body);font-weight:700;font-size:24px;color:var(--mint)}
+h1{font-family:var(--head);font-weight:800;font-size:clamp(25px,6vw,36px);line-height:1.2;margin:0 0 16px;text-wrap:balance}
+.by{color:#c9d2e3;font-size:17px;margin:0 0 6px}
+.uni{color:#aab6cc;font-size:16px;margin:0}
+main.wrap{margin-top:-96px;padding-bottom:48px}
+.card{background:var(--card);border-radius:20px;padding:22px 22px 8px;margin:0 0 16px;box-shadow:0 1px 2px rgba(19,33,60,.06),0 6px 24px rgba(19,33,60,.06)}
+h2{font-family:var(--head);font-weight:800;font-size:24px;line-height:1.3;margin:0 0 12px;text-wrap:balance}
+p{margin:0 0 14px}
+.eyebrow{font-family:var(--body);font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin:0 0 14px}
+/* listen card */
+.listen{border:3px solid color-mix(in srgb,var(--teal) 35%,transparent);padding-bottom:16px}
+.prow{display:flex;align-items:center;gap:18px;margin-bottom:18px}
+.play{flex:none;width:76px;height:76px;border-radius:50%;border:0;background:var(--teal);color:var(--teal-ink);display:grid;place-items:center;cursor:pointer;
+  box-shadow:0 8px 20px color-mix(in srgb,var(--teal) 35%,transparent)}
+.play svg{width:34px;height:34px}
+.play .i-pause{display:none}.play[data-state="playing"] .i-pause{display:block}.play[data-state="playing"] .i-play{display:none}
+.play:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.ptitle{font-family:var(--head);font-weight:800;font-size:21px;line-height:1.25;margin:0 0 4px}
+.plen{color:var(--muted);font-size:16px;margin:0}
+input[type=range]{width:100%;margin:4px 0 6px;height:28px;background:transparent;-webkit-appearance:none;appearance:none;cursor:pointer;--p:0%}
+input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(to right,var(--teal) var(--p),var(--line) var(--p))}
+input[type=range]::-moz-range-track{height:6px;border-radius:3px;background:linear-gradient(to right,var(--teal) var(--p),var(--line) var(--p))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;margin-top:-8px;border-radius:50%;background:var(--card);border:2px solid var(--line);box-shadow:0 1px 4px rgba(0,0,0,.2)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--card);border:2px solid var(--line)}
+.times{display:flex;justify-content:space-between;color:var(--muted);font-size:15px;font-variant-numeric:tabular-nums;margin-bottom:14px}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.btns button{font:600 16px/1 var(--body);color:var(--fg);background:var(--card);border:2px solid var(--line);border-radius:12px;padding:12px 16px;min-height:48px;cursor:pointer}
+.btns button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.note{font-size:15px;color:var(--muted);font-style:italic;margin:0}
+.missing{font-weight:700;color:var(--fg);background:var(--soft);border-radius:10px;padding:10px 12px;font-size:16px}
+audio.native{width:100%;margin-bottom:12px}
+/* content */
+.rq{display:inline-block;font-family:var(--body);font-size:15px;font-weight:700;color:#fff;background:var(--navy);border-radius:8px;padding:3px 9px;margin-right:10px;vertical-align:3px}
+.answer{background:var(--soft);border-radius:12px;padding:12px 14px}
+.answer::first-line{font-weight:700}
+.band{background:var(--navy);color:#fff;padding-bottom:12px}
+.band .eyebrow{color:var(--mint)}
+.stats{display:grid;gap:14px}
+.stats p{margin:0;display:flex;flex-direction:column}
+.stats b{font-family:var(--head);font-size:34px;line-height:1.15}
+.stats span{color:#c9d2e3;font-size:16px}
+.teal{background:var(--teal);color:var(--teal-ink)}
+.teal .eyebrow{color:inherit;opacity:.85}
+.teal .big{font-family:var(--head);font-weight:800;font-size:24px;line-height:1.3}
+.tablewrap{overflow-x:auto;margin:4px 0 16px}
+table{border-collapse:collapse;width:100%;font-size:16px;line-height:1.45}
+caption{text-align:left;font-weight:700;padding-bottom:8px}
+th,td{border:1px solid var(--line);padding:8px 9px;text-align:left;vertical-align:top}
+thead th{background:var(--soft)}
+@media (max-width:520px){.card{padding:20px 16px 6px} table{font-size:14.5px;line-height:1.4} th,td{padding:6px 5px} .tablewrap{margin-inline:-6px}}
+a{color:var(--teal);text-underline-offset:3px;font-weight:600}
+.teal a,.band a{color:inherit}
+footer{color:var(--muted);font-size:15px;padding:8px 0 40px}
+@media (min-width:640px){.stats{grid-template-columns:repeat(3,1fr)} .card{padding:28px 30px 12px}}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
 <a class="skip" href="#poster">Skip to the poster text</a>
-<header class="dark"><div class="wrap">
-  <div class="logo"><i aria-hidden="true"></i>Maqasid</div>
-  <h1>Bias in ChatGPT Recommendations of Synthetic Riyadh Tourist Places for Travellers with Visual, Hearing, and Mobility Disabilities, and the Effect of a Rule-Based Accessibility Filter</h1>
-  <p class="by">By Alanoud Alsubaie, Reem Alobaid, Hissah ALAbdulkarim, Rama Alarifi and Jory Alghunaim. Supervised by Dr. Eman Aljabarti.</p>
-  <p class="uni">SW 350 Group 4 · Princess Nourah bint Abdulrahman University</p>
-</div></header>
-
-<div class="wrap">
-  <section class="player" id="player" aria-labelledby="h-listen">
-    <div class="ph" id="h-listen">Listen to the poster</div>
-    <div class="prow">
-      <button class="play" id="playBtn" type="button" aria-label="Play the poster audio">
-        <svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
-        <svg class="i-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6.5" y="5" width="4" height="14" rx="1"/><rect x="13.5" y="5" width="4" height="14" rx="1"/></svg>
-      </button>
-      <div class="pinfo"><b>The whole poster, read aloud</b><span>About 5 minutes</span></div>
+<header>
+  <div class="wrap">
+    <p class="brand"><span lang="ar" dir="rtl">مقاصد</span>Maqasid</p>
+    <h1>Bias in ChatGPT Recommendations of Synthetic Riyadh Tourist Places for Travellers with Visual, Hearing, and Mobility Disabilities, and the Effect of a Rule-Based Accessibility Filter</h1>
+    <p class="by">By Alanoud Alsubaie, Reem Alobaid, Hissah ALAbdulkarim, Rama Alarifi and Jory Alghunaim, supervised by Dr. Eman Aljabarti.</p>
+    <p class="uni">SW 350 Group 4 · Princess Nourah bint Abdulrahman University</p>
+  </div>
+</header>
+<main class="wrap">
+  <section class="card listen" aria-labelledby="h-listen">
+    <h2 id="h-listen" class="eyebrow">Listen to the poster</h2>
+    <audio id="audio" class="native" controls preload="metadata" src="poster_audio.mp3">Your browser cannot play this audio. The full text is below.</audio>
+    <div id="pctl" hidden>
+      <div class="prow">
+        <button id="play" class="play" type="button" data-state="paused" aria-label="Play the poster audio"><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="5" width="4" height="14" rx="1" fill="currentColor"/><rect x="13.5" y="5" width="4" height="14" rx="1" fill="currentColor"/></svg></button>
+        <div><p class="ptitle">The whole poster, read aloud</p><p class="plen" id="len">About 6 minutes</p></div>
+      </div>
+      <input id="seek" type="range" min="0" max="1000" step="1" value="0" aria-label="Audio position">
+      <div class="times" aria-hidden="true"><span id="cur">0:00</span><span id="dur">--:--</span></div>
+      <div class="btns">
+        <button type="button" data-skip="-15" aria-label="Back 15 seconds">−15 s</button>
+        <button type="button" data-skip="15" aria-label="Forward 15 seconds">+15 s</button>
+        <span role="group" aria-label="Playback speed" style="display:contents">
+          <button type="button" data-rate="1" aria-pressed="true" aria-label="Normal speed">1×</button>
+          <button type="button" data-rate="1.25" aria-pressed="false" aria-label="Faster, 1.25 times">1.25×</button>
+          <button type="button" data-rate="0.8" aria-pressed="false" aria-label="Slower, 0.8 times">Slower</button>
+        </span>
+      </div>
     </div>
-    <div class="seek">
-      <input type="range" id="seek" min="0" max="305" step="1" value="0" aria-label="Position in the audio">
-      <div class="times"><span id="tNow">0:00</span><span id="tAll">5:05</span></div>
-    </div>
-    <div class="ctrls" role="group" aria-label="Audio controls">
-      <button type="button" id="back" aria-label="Back 15 seconds">−15 s</button>
-      <button type="button" id="fwd" aria-label="Forward 15 seconds">+15 s</button>
-      <button type="button" class="sp" data-r="1" aria-pressed="true">1×</button>
-      <button type="button" class="sp" data-r="1.25" aria-pressed="false">1.25×</button>
-      <button type="button" class="sp" data-r="0.85" aria-pressed="false">Slower</button>
-    </div>
-    <audio id="audio" preload="metadata" src="poster_audio.mp3">Your browser cannot play this audio. The full text is below.</audio>
-    <p class="pnote">The same text is written below, so a screen reader such as VoiceOver or TalkBack can read it too.</p>
+    <p id="missing" class="missing" hidden>The audio is not available right now. The full text is below.</p>
+    <p class="note">The same words are written below, with the figure data in tables, so a screen reader such as VoiceOver or TalkBack can read them too.</p>
   </section>
 
-  <main id="poster" tabindex="-1">
-    <h2 class="hook">Would you tell an AI travel planner that you use a wheelchair?</h2>
-
-    <div class="finding dark" aria-labelledby="h-main"><div class="k" id="h-main">Our main finding</div>
-      <p>Telling ChatGPT about a disability made its picks safer. Sometimes, it also made them narrower.</p></div>
-
-    <section class="sec" aria-labelledby="h-why"><h2 id="h-why">Why it matters</h2>
-      <p>More travellers now ask ChatGPT where to go. A traveller with a disability has to choose. Mention it, and risk being steered. Or stay quiet, and risk being sent somewhere the traveller cannot use.</p>
-      <p>We reviewed 26 studies, and none had tested this for travellers with visual, hearing or mobility disabilities.</p>
-    </section>
-
-    <section class="sec" aria-labelledby="h-q"><h2 id="h-q">Our four questions</h2>
-      <ol>
-        <li>Does stating the disability change the picks?</li>
-        <li>Does it steer travellers away from places they could still enjoy?</li>
-        <li>Does our filter apply its accessibility rules correctly?</li>
-        <li>Is filtering first better than stating the disability?</li>
-      </ol>
-    </section>
-
-    <section class="sec" aria-labelledby="h-how"><h2 id="h-how">How we tested</h2>
-      <p>We created 144 fictional places in Riyadh. Each one lists 23 accessibility facilities, such as step-free entrances, lifts and audio guides.</p>
-      <p>We wrote 15 rules, based on published studies and guidelines, to decide who can use each place.</p>
-      <p>Then we asked OpenAI's GPT-6.1 Sol model to pick 5 places, 2,000 times, for three travellers: a wheelchair user, a blind traveller and a Deaf traveller. Every request was the same, except for one sentence: "I use a wheelchair", "I'm blind", or "I'm Deaf". Every answer was then scored by code.</p>
-    </section>
-
-    <section class="sec" aria-labelledby="h-ex"><h2 id="h-ex">One real example</h2>
-      <p>A traveller asked for history and heritage places. Without mentioning a disability, ChatGPT picked five places. Four of them could not be used in a wheelchair. Three had steps at the entrance, and one had no step-free path.</p>
-      <p>When the traveller added "I use a wheelchair", all five places were suitable.</p>
-      <p>We chose this example because it shows the effect clearly. Across all 100 wheelchair answers, those with an unsuitable place fell from 89 to 33.</p>
-    </section>
-
-    <section class="sec" aria-labelledby="h-res"><h2 id="h-res">Results</h2>
-      <div class="fig"><h3>Figure 1. Answers with a place the traveller could not use</h3>
-        <p>Stating the disability cut them for all three travellers. For the wheelchair user, from 89 out of 100 to 33. For the blind traveller, from 40 to 1. For the Deaf traveller, from 31 to 3. Still, about 1 in 3 wheelchair answers had a place the traveller could not use.</p></div>
-      <div class="fig"><h3>Figure 2. Places from types linked to the disability</h3>
-        <p>This shows how many of the 5 places came from types that depend on the sense or movement the disability affects, such as museums and viewpoints for the blind traveller.</p>
-        <p>In the main test, stating the disability led to more of these places, not fewer. In the follow-up tests, it led to fewer. When every place was suitable, they dropped for the wheelchair user and the Deaf traveller. When facility information was hidden, they dropped for all three. For the blind traveller, history museums and observation decks disappeared completely.</p></div>
-      <div class="fig"><h3>Figure 3. How well the filter worked</h3>
-        <p>Our filter applied every rule correctly. It passed 35 out of 35 logic tests and 11 out of 11 data checks. None of the 600 answers given after filtering included an unsuitable place.</p></div>
-      <div class="fig"><h3>Figure 4. The filter running</h3>
-        <p>A screenshot of our filter running on the study data.</p></div>
-      <div class="fig"><h3>Figure 5. Filtering compared with stating the disability</h3>
-        <p>Filtering alone was not enough. The filter on its own scored lower than stating the disability, for all three travellers. Using the filter and stating the disability together beat the filter alone for all three, and beat stating alone for the wheelchair user.</p></div>
-    </section>
-
-    <div class="take" aria-labelledby="h-take"><div class="k" id="h-take">Take-home message</div>
-      <p>Check essential access with clear rules first. Then let ChatGPT choose, using accurate facility data.</p></div>
-
-    <section class="sec" aria-labelledby="h-who"><h2 id="h-who">Who benefits</h2>
-      <ul>
-        <li>Travellers with disabilities visiting Saudi Arabia, who get suggestions they can actually use, without losing the activities they came for.</li>
-        <li>Travel platforms that suggest places with AI, who can add our check before the AI chooses. Our code is public, so it can be tested today.</li>
-        <li>Places and tourism bodies, since the narrowing was strongest when facility information was missing.</li>
-      </ul>
-    </section>
-
-    <section class="sec" aria-labelledby="h-lim"><h2 id="h-lim">What we can't claim yet</h2>
-      <p>We used fictional places, one model, one city and one language. Our rules still need to be checked with travellers with disabilities.</p>
-    </section>
-
-    <section class="sec" aria-labelledby="h-code"><h2 id="h-code">Code and data</h2>
-      <p>All our data and code are public on <a href="https://github.com/h7s1/SW350-G04-disability-bias-audit" target="_blank" rel="noopener">GitHub (opens in a new tab)</a>.</p>
-    </section>
-  </main>
-</div>
-
-<footer class="dark"><div class="wrap"><b>Maqasid</b>This page and its audio are an accessible version of our printed poster. The audio was made with a text-to-speech voice.</div></footer>
-
+  <div id="poster" tabindex="-1">
+<section class="card" aria-labelledby="s1"><h2 id="s1">Introduction: help or stereotype?</h2><p>When travellers disclose a disability, does ChatGPT help them, or steer them toward stereotyped choices? Disclosing a disability may improve accessibility, but it may also limit activities. None of the 26 studies we reviewed tested this, and our study addresses this gap.</p></section>
+<section class="card" aria-labelledby="s2"><h2 id="s2">Research questions</h2><p>We asked four questions. First, how do ChatGPT&#x27;s tourism recommendations for Riyadh differ when a traveller discloses a visual, hearing or mobility disability, compared with an identical traveller who discloses none? We compared four measures: accessibility match rate, budget compliance, interest relevance, and recommendation diversity.</p><p>Second, how often do these recommendations show disability-stereotyped steering away from places that suit the traveller?</p><p>Third, how accurately does a rule-based accessibility filter apply rules derived from published accessibility guidelines?</p><p>Fourth, how do recommendations under a filter-first design, where the filter removes unsuitable places and the disability is not disclosed, compare with disclosing the disability, on the same four measures?</p></section>
+<section class="card" aria-labelledby="s3"><h2 id="s3">Methodology</h2><p>We built 144 synthetic places in Riyadh, in 12 categories, each listing 23 accessibility facilities. We wrote 15 accessibility rules and simulated three travellers: a wheelchair user, a blind traveller and a Deaf traveller. In total, we analysed 2,000 ChatGPT answers.</p><p>Figure 1 shows how the places were prepared and checked, and how the filter&#x27;s verdicts were used. ChatGPT saw only the place descriptions and their listed facilities, never the verdicts.</p><p>Table 1 lists the groups. In Stage 1, group A disclosed the disability and saw all 144 places, and group B, the control, disclosed nothing. Group C, filter-first, saw only the filtered list without disclosing, and group D disclosed and saw the filtered list. In Stage 2, with and without disclosure, E1 showed only the 72 places fully suitable for that traveller, and E2 showed all 144 places with the facility information removed.</p><div class="tablewrap"><table><caption>Table 1. Experimental groups. Stage 1: A to D. Stage 2 follow-ups: E1 and E2.</caption><thead><tr><th scope="col">Group</th><th scope="col">Disclosed</th><th scope="col">Places shown</th><th scope="col">Requests</th></tr></thead><tbody><tr><th scope="row">A</th><td>Yes</td><td>Full list (144 places)</td><td>300</td></tr><tr><th scope="row">B (control)</th><td>No</td><td>Full list (144 places)</td><td>100</td></tr><tr><th scope="row">C (filter-first)</th><td>No</td><td>Filtered list</td><td>300</td></tr><tr><th scope="row">D</th><td>Yes</td><td>Filtered list</td><td>300</td></tr><tr><th scope="row">E1</th><td>Yes / No</td><td>Only the 72 places fully suitable for that traveller</td><td>300 / 300</td></tr><tr><th scope="row">E2</th><td>Yes / No</td><td>All 144 places, facility information removed</td><td>300 / 100</td></tr></tbody></table></div></section>
+<section class="card band" aria-labelledby="s4"><h2 id="s4" class="eyebrow">Key results · 2,000 ChatGPT answers</h2><div class="stats">
+  <p><b>89% → 33%</b><span>wheelchair answers with an unsuitable place, before and after stating the disability</span></p>
+  <p><b>0 of 600</b><span>answers with an unsuitable place after our filter</span></p>
+  <p><b>100%</b><span>of logic tests and data checks passed (35 of 35, 11 of 11)</span></p>
+</div></section>
+<section class="card" aria-labelledby="s5"><h2 id="s5">One sentence, two different answers</h2><p>The traveller wrote: “I&#x27;m visiting Riyadh and I&#x27;m interested in history and heritage. I use a wheelchair. My budget is up to 200 SAR per place. Can you recommend 5 places and explain why you chose each one?”</p><p>The only change was the sentence “I use a wheelchair”. Without it, 4 of ChatGPT&#x27;s 5 places were unusable in a wheelchair. With it, all 5 places were suitable for a wheelchair user.</p></section>
+<section class="card" aria-labelledby="s6"><p class="sr-only">Research question 1.</p><h2 id="s6"><span class="rq">RQ1</span>Stating the disability cut unsuitable picks by up to 56 points</h2><p>Figure 2 shows the answers, out of 100, that included an unsuitable place. Stating the disability cut them from 89 to 33 for the wheelchair user, from 40 to 1 for the blind traveller, and from 31 to 3 for the Deaf traveller. All three differences were significant.</p><p class="answer">Answer: disclosure cut unsuitable picks for all three travellers, and our filter removed the rest.</p><div class="tablewrap"><table><caption>Figure 2 data. Answers (of 100) with an unsuitable place; p &lt; 0.0001</caption><thead><tr><th scope="col">Traveller</th><th scope="col">B: not stated</th><th scope="col">A: stated</th><th scope="col">Change</th></tr></thead><tbody><tr><th scope="row">Wheelchair user</th><td>89</td><td>33</td><td>−56 points</td></tr><tr><th scope="row">Blind traveller</th><td>40</td><td>1</td><td>−39 points</td></tr><tr><th scope="row">Deaf traveller</th><td>31</td><td>3</td><td>−28 points</td></tr></tbody></table></div></section>
+<section class="card" aria-labelledby="s7"><p class="sr-only">Research question 2.</p><h2 id="s7"><span class="rq">RQ2</span>Follow-up tests revealed when narrowing appears</h2><p>Figure 3 shows how many of the 5 places came from categories linked to the traveller&#x27;s disability, such as museums and viewpoints for the blind traveller. In Stage 1, stating the disability gave more of these places, for all three travellers. In E1, where every place was suitable, it gave fewer for the wheelchair user and the Deaf traveller. In E2, with the facilities removed, it gave fewer for all three.</p><p class="answer">Answer: no steering in Stage 1; narrowing appeared in E1 and E2.</p><div class="tablewrap"><table><caption>Figure 3 data. Places (of 5) in disability-linked categories, after stating the disability</caption><thead><tr><th scope="col">Test</th><th scope="col">Wheelchair user</th><th scope="col">Blind traveller</th><th scope="col">Deaf traveller</th></tr></thead><tbody><tr><th scope="row">Stage 1, all facilities listed</th><td>2.52, more (was 1.72)</td><td>3.15, more (was 1.48)</td><td>1.30, more (was 0.57)</td></tr><tr><th scope="row">E1, every place suitable</th><td>2.57, fewer (was 2.97)</td><td>3.30, more (was 2.63)</td><td>0.78, fewer (was 0.97)</td></tr><tr><th scope="row">E2, facilities removed</th><td>2.50, fewer (was 3.13)</td><td>1.63, fewer (was 2.72)</td><td>0.50, fewer (was 1.85)</td></tr></tbody></table></div></section>
+<section class="card" aria-labelledby="s8"><p class="sr-only">Research question 3.</p><h2 id="s8"><span class="rq">RQ3</span>Our filter was 100% accurate in every test</h2><p>The filter passed 35 of 35 logic tests and 11 of 11 data checks. Figure 4 shows its decisions: for each traveller, 72 of the 144 places were fully suitable, and the rest were suitable with a gap, or excluded. The wheelchair user had the most places excluded, 48, the blind traveller 20, and the Deaf traveller 12.</p><p class="answer">Answer: the rules were applied accurately, and 0 of 600 filtered answers were unsuitable.</p><div class="tablewrap"><table><caption>Figure 4 data. Filter decisions for the 144 places</caption><thead><tr><th scope="col">Traveller</th><th scope="col">Fully suitable</th><th scope="col">Suitable with a gap</th><th scope="col">Excluded</th></tr></thead><tbody><tr><th scope="row">Wheelchair user</th><td>72</td><td>24</td><td>48</td></tr><tr><th scope="row">Blind traveller</th><td>72</td><td>52</td><td>20</td></tr><tr><th scope="row">Deaf traveller</th><td>72</td><td>60</td><td>12</td></tr></tbody></table></div></section>
+<section class="card" aria-labelledby="s9"><p class="sr-only">Research question 4.</p><h2 id="s9"><span class="rq">RQ4</span>Filter plus disclosure gave the best balance</h2><p>Figure 5 shows how many of the 5 places were fully suitable. The baseline, group B, scored between 2.5 and 2.8, and the filter alone between 3.0 and 4.2. Stating the disability scored between 3.8 and 4.5, and the filter plus stating between 3.8 and 4.8, the highest being 4.76 for the wheelchair user.</p><p class="answer">Answer: filter plus disclosure beat the filter alone for all three travellers.</p><div class="tablewrap"><table><caption>Figure 5 data. Fully suitable places (of 5); Holm-corrected</caption><thead><tr><th scope="col">Traveller</th><th scope="col">B: baseline</th><th scope="col">C: filter only</th><th scope="col">A: stated</th><th scope="col">D: filter + stated</th></tr></thead><tbody><tr><th scope="row">Wheelchair user</th><td>2.81</td><td>4.16</td><td>4.46</td><td>4.76</td></tr><tr><th scope="row">Blind traveller</th><td>2.49</td><td>2.96</td><td>4.34</td><td>4.42</td></tr><tr><th scope="row">Deaf traveller</th><td>2.79</td><td>3.18</td><td>3.82</td><td>3.80</td></tr></tbody></table></div></section>
+<section class="card" aria-labelledby="s10"><h2 id="s10">Implications: who benefits</h2><p>Travellers with disabilities get more control over what they disclose to the model. Recommendation platforms can combine a sourced rule filter with disclosure. And for tourism in Saudi Arabia, the lesson is to publish accurate, detailed facility information.</p></section>
+<section class="card" aria-labelledby="s11"><h2 id="s11">Prototype: the accessibility filter</h2><p>Our filter uses Python if-then rules to pick usable places, and ChatGPT then chooses. A place that fails an Essential rule is excluded, and one that fails only an Important rule is suitable with a gap. For the wheelchair user, 96 of the 144 places were sent to ChatGPT.</p></section>
+<section class="card teal" aria-labelledby="s12"><h2 id="s12" class="eyebrow">Conclusion</h2><p class="big">Check essential needs with clear rules first. Then let the AI choose.</p><p>Our contributions are an audit of disability disclosure in ChatGPT travel advice, a transparent, sourced accessibility filter, and evidence that filter plus disclosure works best.</p><p>Next steps: real places, more models, and Arabic prompts.</p></section>
+<section class="card" aria-labelledby="s13"><h2 id="s13">Code and data</h2><p>Our code and data are public on <a href="https://github.com/h7s1/SW350-G04-disability-bias-audit" target="_blank" rel="noopener">GitHub (opens in a new tab)</a>.</p></section>
+  </div>
+</main>
+<footer class="wrap">
+  <p>This page and its audio are an accessible version of our printed poster. The audio was made with a text-to-speech voice.</p>
+</footer>
 <script>
-const a = document.getElementById('audio'), box = document.getElementById('player'), btn = document.getElementById('playBtn'),
-      seek = document.getElementById('seek'), tNow = document.getElementById('tNow'), tAll = document.getElementById('tAll');
-const fmt = s => { s = Math.max(0, Math.floor(s || 0)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
-btn.onclick = () => { if (a.paused) a.play(); else a.pause(); };
-a.addEventListener('play', () => { box.classList.add('on'); btn.setAttribute('aria-label', 'Pause the poster audio'); });
-a.addEventListener('pause', () => { box.classList.remove('on'); btn.setAttribute('aria-label', 'Play the poster audio'); });
-a.addEventListener('loadedmetadata', () => { if (isFinite(a.duration)){ seek.max = Math.floor(a.duration); tAll.textContent = fmt(a.duration); } });
-a.addEventListener('timeupdate', () => { if (!seek.matches(':active')) seek.value = Math.floor(a.currentTime); tNow.textContent = fmt(a.currentTime); });
-seek.addEventListener('input', () => { a.currentTime = +seek.value; tNow.textContent = fmt(+seek.value); });
-document.getElementById('back').onclick = () => { a.currentTime = Math.max(0, a.currentTime - 15); };
-document.getElementById('fwd').onclick = () => { a.currentTime = Math.min(a.duration || 0, a.currentTime + 15); };
-document.querySelectorAll('.sp').forEach(b => b.onclick = () => { a.playbackRate = +b.dataset.r;
-  document.querySelectorAll('.sp').forEach(x => x.setAttribute('aria-pressed', x === b)); });
+(function(){
+  var a=document.getElementById('audio'), ui=document.getElementById('pctl'), play=document.getElementById('play'),
+      seek=document.getElementById('seek'), cur=document.getElementById('cur'), dur=document.getElementById('dur'),
+      len=document.getElementById('len'), missing=document.getElementById('missing');
+  if(!a||!ui){return;}
+  a.removeAttribute('controls'); a.classList.remove('native'); ui.hidden=false;
+  function t(s){ if(!isFinite(s)) return '--:--'; s=Math.max(0,Math.floor(s)); return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); }
+  function words(s){ s=Math.max(0,Math.floor(s||0)); var m=Math.floor(s/60), r=s%60;
+    return (m? m+' minute'+(m===1?'':'s')+' ':'')+r+' second'+(r===1?'':'s'); }
+  function paint(){
+    var d=a.duration||0, c=a.currentTime||0, p=d? c/d*100 : 0;
+    seek.style.setProperty('--p', p+'%'); if(!seek.matches(':active')) seek.value=Math.round(p*10);
+    cur.textContent=t(c); dur.textContent=t(d);
+    seek.setAttribute('aria-valuetext', words(c)+' of '+words(d));
+  }
+  function meta(){
+    var m=Math.max(1,Math.round(a.duration/60));
+    if(isFinite(m)){ len.textContent='About '+m+' minute'+(m===1?'':'s'); }
+    missing.hidden=true; play.disabled=false; seek.disabled=false; paint();
+  }
+  function fail(){ missing.hidden=false; play.disabled=true; seek.disabled=true; len.textContent='Audio coming soon'; }
+  a.addEventListener('loadedmetadata',meta); a.addEventListener('timeupdate',paint); a.addEventListener('error',fail,true);
+  a.addEventListener('play',function(){ play.dataset.state='playing'; play.setAttribute('aria-label','Pause the poster audio'); });
+  a.addEventListener('pause',function(){ play.dataset.state='paused'; play.setAttribute('aria-label','Play the poster audio'); });
+  a.addEventListener('ended',function(){ a.currentTime=0; paint(); });
+  play.addEventListener('click',function(){ if(a.paused){ var r=a.play(); if(r&&r.catch) r.catch(function(){}); } else { a.pause(); } });
+  seek.addEventListener('input',function(){ if(a.duration){ a.currentTime=seek.value/1000*a.duration; paint(); } });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-skip]'),function(b){
+    b.addEventListener('click',function(){ if(a.duration){ a.currentTime=Math.min(a.duration,Math.max(0,a.currentTime+Number(b.dataset.skip))); paint(); } });
+  });
+  var rates=document.querySelectorAll('[data-rate]');
+  Array.prototype.forEach.call(rates,function(b){
+    b.addEventListener('click',function(){ a.playbackRate=Number(b.dataset.rate);
+      Array.prototype.forEach.call(rates,function(x){ x.setAttribute('aria-pressed', x===b?'true':'false'); }); });
+  });
+  if(a.readyState>=1){ meta(); }
+  setTimeout(function(){ if(a.readyState===0 && (a.error||a.networkState===3)){ fail(); } },3000);
+})();
 </script>
 </body>
 </html>
